@@ -6,8 +6,7 @@
 How to make docs...
 
 ```
-$ source ~/data/venv/dronze/bin/activate
-$ pip install mkdocs-bootswatch
-$ cd ~/data/github/dronze/claytantor.github.io
-$ mkdocs build --clean
+$ bundle exec jekyll new . --force
+New jekyll site installed in /Users/claytongraham/data/github/claytantor.github.io.
+
 ```    
