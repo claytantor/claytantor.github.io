@@ -1,0 +1,14 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Home\n\n\nThis is home.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#home", 
+            "text": "This is home.", 
+            "title": "Home"
+        }
+    ]
+}
