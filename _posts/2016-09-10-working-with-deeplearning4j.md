@@ -8,12 +8,11 @@ categories: deeplearning java
 I admit it. I am ignorant. I also am not a wizard, information doesn't just get injected into my brain as if I was neo from the matrix. **I know kungfu**.
 So in my mind its normal to ask dumb questions or misunderstand when coming to something new and fresh. Helping people be successful means being compassionate when people come to you and ask for help. That's where I am coming from with this post in my first impressions and issues I am seeing around using **deeplearning4j**.
 
-Most enterprise companies understand this and spend a ton of time, money and energy on building documentation, cookbooks and how-tos that make understanding the essentials of how a technology is used for end to end use cases possible.
+Most enterprise companies understand this and spend a ton of time, money and energy on building documentation, cookbooks and how-tos that make understanding the essentials of how a technology is used easy.
 
-The commercial company behind **deeplearning4j** is [skymind](https://skymind.io/). It positions itself as "Deep Learning for Enterprise Level Applications", which is and important claim because enterprise is not focused on science, or mathematics, its focused on business impact. Business concerns are different than academic ones and as a set of technologies like this transition from primarily academic settings to commercial ones the product owner should spend time and have concern for.
+The commercial company behind **deeplearning4j** is [skymind](https://skymind.io/). It positions itself as "Deep Learning for Enterprise Level Applications", which is an important claim because enterprise is not focused on science, or mathematics, its focused on business impact. Business concerns are different than academic ones and as a set of technologies like this transition from primarily academic settings to commercial ones the product owner should spend time and have concern for business oriented users.
 
-This post is about my experiences in the first week of using deeplearning4j, the challenges I faced and my experiences.
-
+This post is about my experiences in the first week of using deeplearning4j as a business oriented user, the challenges I faced and my experiences.
 
 ## Important Links
 
@@ -21,12 +20,16 @@ This post is about my experiences in the first week of using deeplearning4j, the
 * [ND4j Repo On Github](https://github.com/deeplearning4j/nd4j) - ND4J is the mathematics foundation classes used by deeplearning4j.  
 * [Andy Gibson's Glitter](https://gitter.im/agibsonccc) - *Newbie's beware.* Ask the wrong question to the group and Andy will start a DM with you and tell you that you are wasting his time. I found that AlexDBlack was helpful even though I asked him one very dumb question.
 
-## Classification
-I would argue that a giant business use cases is about automation of classification. Making simple data structures that make it easy to build recordsets, and then to simply get the classifications for those records automatically is important to broad adoption.
+# What Slowed Me Down TL;DR
 
 When trying to use **deeplearning4j** I ran into some specific challenges that slowed me down.
 
-### Using INDArray
+* Using INDArray  
+* Classification and Correlation
+* Labeling
+* "End To End" Documentation
+
+# Using INDArray
 INDArray is a buffer, and its really great at being flexible for many different use cases because it can be used in N dimensional problems. All you need to do is use the shape to then split the pages up.
 
 https://www.mathworks.com/help/matlab/math/multidimensional-arrays.html?requestedDomain=www.mathworks.com&requestedDomain=www.mathworks.com
@@ -107,99 +110,74 @@ So when they implemented NDArrayStrings this is what they did. The to string met
     }
     {% endhighlight %}
 
-The result is a well formed version of the N dimensional representation in the form of a string, but no data model in the base implementation that represents it without writing transformations that paginate the buffer.
+The result is a well formed version of the N dimensional representation in the form of a string, but no data model in the base implementation that represents it without writing custom transformations that paginate the buffer.
 
-No utilities have been created to paginate the buffer, and the closest thing is a jackson serializer that they do NOT recommend that you use for pagination.
+    {% highlight java %}
+    public static List<List<Double>> makeRowsFromData(INDArray source, int precision) throws IOException {
+            String serializedData = new NDArrayStrings(", ",precision).format(source);
+            List<List<Double>> rows = (List<List<Double>>)OBJECT_MAPPER.readValue(
+                    serializedData.getBytes(),List.class);
+            return rows;
+    }
+    {% endhighlight %}
 
+The problem with my approach is that its not flexible, in this specific implementation there is **only** support for the 2darray version. The shape & buffer concept is extremely flexible from a computer science and mathematics perspective but difficult and obtuse from an end user data model perspective.     
 
+No utilities have been created by the skymind team to paginate the buffer recursively and create a simpler data model, and the closest thing is a jackson serializer that it is NOT recommend for pagination, even though writing a jackson de-serializer takes about on tenth the time. All you have to work with is the buffer and the shape.
 
-All you have to work with is the buffer and the shape. The recommendation from the team is to **write your own** and figuring out the transformation into a data model that you could do correlation on **is your problem noob, stop wasting my time**.
+![Not Jackson](/assets/images/not_jackson.png)
+
+The founder is adamant that you **write your own** based on the original toString method and figuring out the transformation into a data model that you could do correlation on **is your problem noob, stop wasting my time**.
 
 ![Wasting my time](/assets/images/abusive_founder.png)
 
+Wow. I never asked Adam for anything, never dumped **anything** on him. My crime was asking a forum of people if they had comments on an approach I took to get data out of an INDArray. He could have ignored me completely and this would have been a non issue. I am just a noob on a public forum with 50 users on it trying to learn how to use a technology and the next thing I know this fellow is DMing me telling me I am not respecting *his time*. It really took me back.
+
+![Clay Response](/assets/images/response.png)
+
+[Here is the transcript](/assets/txt/adam_dm.txt) of the entire DM exchange if you care.
+
 ## Implications of the BaseNDArray Implementation
 
+The most important implications relate to the platforms ability to be used by "common folk" in the Enterprise. A simple hierarchical model that supported transformations of the paging recursively for N dimensional arrays would be a significant value add to the toolset.
+
+A potential solution could be a nodal N level hierarchical model, and regression transformations that make it easy to get base models for correlation with labeling.
+
+# Classification and Correlation
+
+One of the most valuable use cases for the Enterprise for the use of deep learning is Classification and correlation. This would be the activity of taking a data set that you know something about.
+
+What I found in the deeplearning4j/[dl4j-examples](https://github.com/deeplearning4j/dl4j-examples) was they were very good from a point of view of providing some sort of implementation for many common network approaches, and not so good in showing complete examples of how these approaches are likely to be used in the real world. Here is where this perspective comes from. Let's take the most basic example that a new user is like to try, CSVExample.
+
+## Common Flow in a dl4j-example
+
+Let's look at the kind of example in dl4j, and break down what its accomplishes. Take a look at the [CSVExample]() and read along.
+
+![flow one](/assets/images/correlation_1.png)
+
+**Reading The Data**
+In this example the all data for both training and testing is in one data set.
+
+    {% highlight java %}
+    DataSetIterator iterator = new RecordReaderDataSetIterator(recordReader,batchSize,labelIndex,numClasses);
+    DataSet allData = iterator.next();
+    allData.shuffle();
+    SplitTestAndTrain testAndTrain = allData.splitTestAndTrain(0.65);  
+    {% endhighlight %}        
+
+The implication of this choice is that it is difficult to correlate the output of the network to the testing dataset because there isn't a clear index to map the test data lines back the classification result from the output of the network. The test data is just 2/3 into the data set so there isn't a clear id for the test records you could use to map the results back to.
 
 
+# Labeling
 
-# Recommendations
+# End To End Documentation
 
 
+# Why this is not "Enterprise" (yet)
 
-```
-Adam Gibson @agibsonccc Sep 09 17:02
-FWIW
-I crack down on people who don't do research
-Scroll up
-You'll see where the guy didn't even know what a gpu was or how it worked
-You don't need to be humble trust me
-Just ask away
-I wish we had more people like you frankly
-"Help me understand something, I've done some research" isn't "Do it for me lol I don't respect your time"
-Ease up a bit :wink:
+# Recommendations to Skymind
 
-Clay Graham @claytantor 09:26
-Appreciate the sentiment. I attempt to have humility because for much of my life it was missing. It is important to show those, who I am asking help from, to know that I appreciate anything they provide. Hope you understand.
-But I also understand that I have to make an investment in understanding. RTFD is an acceptable answer, if the docs actually have the answer of course.
-
-Adam Gibson @agibsonccc 09:26
-Well so what are you missing here?
-I asked you to look at the source code
-not use jackson
-I already said we didn't have the arrays stuff you were looking for
-
-Clay Graham @claytantor 09:27
-Well I guess I am lazy. I want an easier way if possible. :smiling_imp:
-
-Adam Gibson @agibsonccc 09:27
-but we implemented it in our to string stuff
-Don't dump that on me
-If you deviate I have zero mercy for you
-That's frankly wasting my time
-I gave you that advice because I know what's there
-
-Clay Graham @claytantor 09:28
-Of course I am not dumping anything on you sir, sorry if you took offence.
-
-Adam Gibson @agibsonccc 09:28
-Well no it just doesn't matter
-It wastes both of our time
-I'm trying to show you what you want
-
-Clay Graham @claytantor 09:28
-I am sorry you feel that way.
-
-Adam Gibson @agibsonccc 09:28
-despite not understanding why you even need to do this
-So again here's the looping logic
-Go here and look through this
-
-Clay Graham @claytantor 09:28
-ok. so sorry. I will leave this group then. sorry to offend.
-
-Adam Gibson @agibsonccc 09:29
-https://github.com/deeplearning4j/nd4j/blob/master/nd4j-backends/nd4j-api-parent/nd4j-api/src/main/java/org/nd4j/linalg/string/NDArrayStrings.java
-You don't need to leave
-Just listen to us a bit
-I'm just making things abundantly clear where things need to go
-We get along fine if you can just cooperate a bit
-"Interpret what you said and attempt to do something off" isn't helping anyone :wink:
-Look up to you what you decide to do
-I know you're learning we all are in some ways
-
-Clay Graham @claytantor 09:46
-I am happy to listen, but I have to be honest that telling a potential user that they are wasting your time is not going to work for you as a founder. Its abusive, and will push people away. I am ignorant, so I am going to ask stupid questions. You are going to get way stupider questions than mine and if your reaction is the one you just gave me, I am telling you, its not going to work out well. When you get frustrated with people who are aren't as smart as you, and you will over and over because you are very smart, you will need to see yourself as a servant if you want to be successful.
-
-Adam Gibson @agibsonccc 09:49
-Look again - up to you. I've sat for a long time with some people
-I grew this to as large as what it is because of how long I sat here
-Part of that was convincing people to try something and iterate on it
-If you look the conversation afterwards was fairly productive - we talk about trade offs of things
-Ive seen nice people and people who treat us like doormats
-I have a firm middle ground I take on this nothing more
-Up to you if you want to try again - all I ask is you give the approaches we give you a try
-
-Adam Gibson @agibsonccc 09:54
-It'll focus things on being productive. There's a lot of rabbit holes to go down
-
-```
+* Invest In Business Oriented Technical Documentation
+* Hire a Technical Product Owner
+* Create A Safe Space for Your Community
+* Focus on Customer Success  
