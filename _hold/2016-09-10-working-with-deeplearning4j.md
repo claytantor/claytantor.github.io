@@ -5,12 +5,12 @@ date:   2016-09-10 14:42:30 -0700
 categories: deeplearning java
 ---
 
-I admit it. I am ignorant. I also am not a wizard, information doesn't just get injected into my brain as if I was neo from the matrix. **I know kungfu**.
+I admit it. I am ignorant. I also am not a wizard, information doesn't just get injected into my brain as if I was neo from the matrix. **I don't know kungfu**.
 So in my mind its normal to ask dumb questions or misunderstand when coming to something new and fresh. Helping people be successful means being compassionate when people come to you and ask for help. That's where I am coming from with this post in my first impressions and issues I am seeing around using **deeplearning4j**.
 
-Most enterprise companies understand this and spend a ton of time, money and energy on building documentation, cookbooks and how-tos that make understanding the essentials of how a technology is used easy.
+Most enterprise companies understand this and spend a ton of time, money and energy on building documentation, cookbooks, how-tos and then nuturing a community that make understanding the essentials of how a technology is used easy.
 
-The commercial company behind **deeplearning4j** is [skymind](https://skymind.io/). It positions itself as "Deep Learning for Enterprise Level Applications", which is an important claim because enterprise is not focused on science, or mathematics, its focused on business impact. Business concerns are different than academic ones and as a set of technologies like this transition from primarily academic settings to commercial ones the product owner should spend time and have concern for business oriented users.
+The commercial company behind **deeplearning4j** is [skymind](https://skymind.io/). It positions itself as "Deep Learning for Enterprise Level Applications", which is an important claim because enterprise is not focused on science, or mathematics, its focused on business impact. Business concerns are different than academic ones and as a set of technologies like this technology's transition from primarily academic settings to commercial ones the product owner should spend time and have concern for business oriented users.
 
 This post is about my experiences in the first week of using deeplearning4j as a business oriented user, the challenges I faced and my experiences.
 
@@ -40,7 +40,7 @@ The data buffer in this example is a single array.
 
 `[0.3,2.4,3.6,1.3,3.4,1.6,2.3,0.4,0.6,3.3,1.4,0.6]`
 
-and the shape: `[3,4]`
+and the shape: `[4,3]`
 
 So when you look at the base implementation (BaseNDArray) of INDArray the toString method properly creates a model with the right N level dimension,
 paged in a way that the shape tells you it should be. ie. A two dimensional shape would make a string representation:
@@ -110,18 +110,21 @@ So when they implemented NDArrayStrings this is what they did. The to string met
     }
     {% endhighlight %}
 
-The result is a well formed version of the N dimensional representation in the form of a string, but no data model in the base implementation that represents it without writing custom transformations that paginate the buffer.
+The shape & buffer concept is extremely flexible from a computer science and mathematics perspective but difficult and obtuse from an end user data model perspective. The result is a well formed version of the N dimensional representation in the form of a string, but no data model in the base implementation that represents it without writing custom transformations that paginate the buffer. One solution is to use Jackson.
 
     {% highlight java %}
-    public static List<List<Double>> makeRowsFromData(INDArray source, int precision) throws IOException {
-            String serializedData = new NDArrayStrings(", ",precision).format(source);
-            List<List<Double>> rows = (List<List<Double>>)OBJECT_MAPPER.readValue(
-                    serializedData.getBytes(),List.class);
-            return rows;
+    /**
+     * Weekly typed N dimensional List.
+     */
+    public static List makeRowsFromNDArray(INDArray source, int precision) throws IOException {
+        String serializedData = new NDArrayStrings(", ",precision).format(source);
+        List rows = (List)OBJECT_MAPPER.readValue(
+                serializedData.getBytes(),List.class);
+        return rows;
     }
     {% endhighlight %}
 
-The problem with my approach is that its not flexible, in this specific implementation there is **only** support for the 2darray version. The shape & buffer concept is extremely flexible from a computer science and mathematics perspective but difficult and obtuse from an end user data model perspective.     
+The problem with my approach is that its weakly typed, the user needs to know the depth of the dimensions to use it properly. Its also a little fat and slow.     
 
 No utilities have been created by the skymind team to paginate the buffer recursively and create a simpler data model, and the closest thing is a jackson serializer that it is NOT recommend for pagination, even though writing a jackson de-serializer takes about on tenth the time. All you have to work with is the buffer and the shape.
 
@@ -131,7 +134,7 @@ The founder is adamant that you **write your own** based on the original toStrin
 
 ![Wasting my time](/assets/images/abusive_founder.png)
 
-Wow. I never asked Adam for anything, never dumped **anything** on him. My crime was asking a forum of people if they had comments on an approach I took to get data out of an INDArray. He could have ignored me completely and this would have been a non issue. I am just a noob on a public forum with 50 users on it trying to learn how to use a technology and the next thing I know this fellow is DMing me telling me I am not respecting *his time*. It really took me back.
+Wow. I never asked Adam for anything, never dumped **anything** on him. My crime was asking a forum of people if they had comments on an approach I took to get data out of an INDArray and if there was an alternative to using jackson that didn't me to write a whole bunch of code. He could have ignored me completely and this would have been a non issue. I am just a noob on a public forum with 50 users on it trying to learn how to use a technology and the next thing I know this fellow is DMing me telling me I am not respecting *his time*. It really took me back.
 
 ![Clay Response](/assets/images/response.png)
 
@@ -141,7 +144,7 @@ Wow. I never asked Adam for anything, never dumped **anything** on him. My crime
 
 The most important implications relate to the platforms ability to be used by "common folk" in the Enterprise. A simple hierarchical model that supported transformations of the paging recursively for N dimensional arrays would be a significant value add to the toolset.
 
-A potential solution could be a nodal N level hierarchical model, and regression transformations that make it easy to get base models for correlation with labeling.
+A potential solution could be a nodal N level hierarchical model, something like nodes, and regression transformations that make it easy to get base models for correlation with labeling.
 
 # Classification and Correlation
 
@@ -167,17 +170,43 @@ In this example the all data for both training and testing is in one data set.
 
 The implication of this choice is that it is difficult to correlate the output of the network to the testing dataset because there isn't a clear index to map the test data lines back the classification result from the output of the network. The test data is just 2/3 into the data set so there isn't a clear id for the test records you could use to map the results back to.
 
+**Evaluation**
+
+```
+o.d.e.d.BasicCSVClassifier -
+Examples labeled as 0 classified by model as 0: 8 times
+Examples labeled as 0 classified by model as 1: 13 times
+Examples labeled as 0 classified by model as 2: 23 times
+```
+
+What I would really :heart: is for the evaluation to tell me all the test row numbers and their classifications, something like [[1, "Normal"], [2,"Decreasing trend"]] because what it seems I need to do is to run some sort of test on the net output to determine the highest score for each row and then provide an implementation for the label mapping myself.
+
+
+**Testing The Examples**
+
+I have found one the best ways to teach developers what should be expected in terms of behavior is to create unit tests the explicitly test the outcomes you are expecting from your systems.
+
+```
+$ tree dl4j-examples/dl4j-examples/src -L 2
+dl4j-examples/dl4j-examples/src
+└── main
+    ├── java
+    └── resources
+```
 
 # Labeling
 
-# End To End Documentation
-
-
-# Why this is not "Enterprise" (yet)
 
 # Recommendations to Skymind
 
+* Improve the Existing Libraries
+    * Improve and simplify pagination, data ingress and egress utilities for INDArray
+    * Enhance Label Mapping and Correlation Capabilities for Network Output and Evaluation
+    * Provide unit tests that verify expected results based on datasets.
+* Maturity
 * Invest In Business Oriented Technical Documentation
 * Hire a Technical Product Owner
 * Create A Safe Space for Your Community
-* Focus on Customer Success  
+* Prioritize Customer Success Over Technical Elegance  
+
+# Recommendations to Anyone Considering Skymind As a Vendor
