@@ -135,7 +135,7 @@ The founder is adamant that you **write your own** based on the original toStrin
 
 ![Wasting my time](/assets/images/abusive_founder.png)
 
-Wow. I never asked Adam for anything, never dumped **anything** on him. My crime was asking a forum of people if they had comments on an approach I took to get data out of an INDArray and if there was an alternative to using jackson that didn't me to write a whole bunch of code. He could have ignored me completely and this would have been a non issue. I am just a noob on a public forum with 50 users on it trying to learn how to use a technology and the next thing I know this fellow is DMing me telling me I am not respecting *his time*. It really took me back.
+Wow. I never asked Adam for anything, never dumped **anything** on him. My crime was asking a forum of people if they had comments on an approach I took to get data out of an INDArray and if there was an alternative to using jackson that didn't force me to write a whole bunch of code. He could have ignored me completely and this would have been a non issue. I am just a noob on a public forum with 50 users on it trying to learn how to use a technology and the next thing I know this fellow is DMing me telling me I am not respecting *his time*. It really took me back.
 
 ![Clay Response](/assets/images/response.png)
 
@@ -149,7 +149,7 @@ A potential solution could be a nodal N level hierarchical model, something like
 
 # Classification and Correlation
 
-One of the most valuable use cases for the Enterprise for the use of deep learning is Classification and correlation. This would be the activity of taking a data set that you know something about.
+One of the most valuable use cases for the Enterprise for the use of deep learning is Classification and correlation. This would be the activity of taking a data set that you know something about and then using it to learn about data that you dont know as much about.
 
 What I found in the deeplearning4j/[dl4j-examples](https://github.com/deeplearning4j/dl4j-examples) was they were very good from a point of view of providing some sort of implementation for many common network approaches, and not so good in showing complete examples of how these approaches are likely to be used in the real world. Here is where this perspective comes from. Let's take the most basic example that a new user is like to try, CSVExample. This example shows the user how to read and train data, but fails at showing the potential user of how to correlate that back to the Classifications.
 
