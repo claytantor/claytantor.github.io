@@ -28,6 +28,7 @@ When trying to use **deeplearning4j** I ran into some specific challenges that s
 * Classification and Correlation
 * Labeling
 * "End To End" Documentation
+* Lack of Simple Recommendations for GPU
 
 # Using INDArray
 INDArray is a buffer, and its really great at being flexible for many different use cases because it can be used in N dimensional problems. All you need to do is use the shape to then split the pages up.
@@ -194,19 +195,17 @@ dl4j-examples/dl4j-examples/src
     └── resources
 ```
 
-# Labeling
-
-
 # Recommendations to Skymind
 
 * Improve the Existing Libraries
-    * Improve and simplify pagination, data ingress and egress utilities for INDArray
+    * Improve and simplify pagination, data ingress and egress utilities for ND4J
     * Enhance Label Mapping and Correlation Capabilities for Network Output and Evaluation
     * Provide unit tests that verify expected results based on datasets.
-* Maturity
+    * Correlation in all examples.
 * Invest In Business Oriented Technical Documentation
 * Hire a Technical Product Owner
 * Create A Safe Space for Your Community
 * Prioritize Customer Success Over Technical Elegance  
 
-# Recommendations to Anyone Considering Skymind As a Vendor
+# Advice to the Founders
+I am very sympathetic to you, more than you probably think. I was once young and believed that most people were not doing their part when it came to asking for help, and they aren't. But that is normal. Remember that if you *show no mercy* and are telling users that they are *wasting your time* and you threaten to ban them just because they asked a question that you are very likely alienating a potential customer. My honest recommendation is that you try to be more of a servant and instead of criticizing them, help them with compassion and kindness. If you can't do it because your personality doesn't permit it, hire someone who can and don't be customer facing. Wether you want to admit it or not you are killing deals before they ever begin.
