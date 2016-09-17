@@ -28,6 +28,7 @@ When trying to use **deeplearning4j** I ran into some specific challenges that s
 * Classification and Correlation
 * Labeling
 * "End To End" Documentation
+* Lack of Simple Recommendations for GPU
 
 # Using INDArray
 INDArray is a buffer, and its really great at being flexible for many different use cases because it can be used in N dimensional problems. All you need to do is use the shape to then split the pages up.
@@ -150,7 +151,31 @@ A potential solution could be a nodal N level hierarchical model, something like
 
 One of the most valuable use cases for the Enterprise for the use of deep learning is Classification and correlation. This would be the activity of taking a data set that you know something about.
 
-What I found in the deeplearning4j/[dl4j-examples](https://github.com/deeplearning4j/dl4j-examples) was they were very good from a point of view of providing some sort of implementation for many common network approaches, and not so good in showing complete examples of how these approaches are likely to be used in the real world. Here is where this perspective comes from. Let's take the most basic example that a new user is like to try, CSVExample.
+What I found in the deeplearning4j/[dl4j-examples](https://github.com/deeplearning4j/dl4j-examples) was they were very good from a point of view of providing some sort of implementation for many common network approaches, and not so good in showing complete examples of how these approaches are likely to be used in the real world. Here is where this perspective comes from. Let's take the most basic example that a new user is like to try, CSVExample. This example shows the user how to read and train data, but fails at showing the potential user of how to correlate that back to the Classifications.
+
+To solve for this I created a new example that correlated the Classifications back to the original test data, based on the classifications that the training data used.
+
+```
+0,Human
+1,Cat
+2,Dog
+```
+
+And then used the output of the network to figure out what the resulting classification was on the test data.
+
+```
+ANIMAL 0 was a Cat that lived 19 years and weighed 10 lbs. ate Mice and made the sound Meow.
+ANIMAL 1 was a Dog that lived 9 years and weighed 60 lbs. ate Cats and made the sound Bark.
+ANIMAL 2 was a Cat that lived 17 years and weighed 12 lbs. ate Mice and made the sound Meow.
+ANIMAL 3 was a Dog that lived 9 years and weighed 50 lbs. ate Cats and made the sound Bark.
+ANIMAL 4 was a Cat that lived 15 years and weighed 16 lbs. ate Mice and made the sound Meow.
+ANIMAL 5 was a Dog that lived 9 years and weighed 70 lbs. ate Cats and made the sound Bark.
+ANIMAL 6 was a Dog that lived 7 years and weighed 70 lbs. ate Cats and made the sound Bark.
+ANIMAL 7 was a Dog that lived 10 years and weighed 40 lbs. ate Cats and made the sound Bark.
+ANIMAL 8 was a Dog that lived 11 years and weighed 100 lbs. ate IceCream and made the sound Bark.
+```
+
+This implementation can be found here: [Animals Classifier example](https://github.com/deeplearning4j/dl4j-examples/blob/de860ca62206d63b796411ee3042efec10a861d0/dl4j-examples/src/main/java/org/deeplearning4j/examples/dataExamples/BasicCSVClassifier.java)
 
 ## Common Flow in a dl4j-example
 
@@ -194,19 +219,17 @@ dl4j-examples/dl4j-examples/src
     └── resources
 ```
 
-# Labeling
-
-
 # Recommendations to Skymind
 
 * Improve the Existing Libraries
-    * Improve and simplify pagination, data ingress and egress utilities for INDArray
+    * Improve and simplify pagination, data ingress and egress utilities for ND4J
     * Enhance Label Mapping and Correlation Capabilities for Network Output and Evaluation
     * Provide unit tests that verify expected results based on datasets.
-* Maturity
+    * Correlation in all examples.
 * Invest In Business Oriented Technical Documentation
 * Hire a Technical Product Owner
 * Create A Safe Space for Your Community
 * Prioritize Customer Success Over Technical Elegance  
 
-# Recommendations to Anyone Considering Skymind As a Vendor
+# Advice to the Founders
+I am very sympathetic to you, more than you probably think. I was once young and believed that most people were not doing their part when it came to asking for help, and they aren't. But that is normal. Remember that if you *show no mercy* and are telling users that they are *wasting your time* and you threaten to ban them just because they asked a question that you are very likely alienating a potential customer. My honest recommendation is that you try to be more of a servant and instead of criticizing them, help them with compassion and kindness. If you can't do it because your personality doesn't permit it, hire someone who can and don't be customer facing. Wether you want to admit it or not you are killing deals before they ever begin.
