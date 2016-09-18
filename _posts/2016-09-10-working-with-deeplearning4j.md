@@ -12,7 +12,7 @@ Most enterprise companies understand this and spend a ton of time, money and ene
 
 The commercial company behind **deeplearning4j** is [skymind](https://skymind.io/). It positions itself as "Deep Learning for Enterprise Level Applications", which is an important claim because enterprise is not focused on science, or mathematics, its focused on business impact. Business concerns are different than academic ones and as a set of technologies like this technology's transition from primarily academic settings to commercial ones the product owner should spend time and have concern for business oriented users.
 
-This post is about my experiences in the first week of using deeplearning4j as a business oriented user, the challenges I faced and my experiences. Let me be clear: There is enormous value in what skymind is doing, really it is a pure deep learning implementation with an eye for performance in Java. That is super important, and I would recommend using it even at this early stage. This is just a form of showing people who may use the platform what kinds of things they can expect when using it.
+This post is about my experiences in the first week of using deeplearning4j as a business oriented user, the challenges I faced and my experiences. Let me be clear; There is enormous value in what skymind is doing, really it is a pure deep learning implementation with an eye for performance in Java. That is super important, and I would recommend using it even at this early stage. This is just a form of showing people who may use the platform what kinds of things they can expect when using it.
 
 ## Important Links
 
