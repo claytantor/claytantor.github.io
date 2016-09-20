@@ -37,9 +37,9 @@ Don't remove ANY of that, its awesome, but build some bridges that marshal in an
 
 **People just love grids**, even if they aren't awesome for deep learning. A simple guava to nd4j bridge, or even some examples that used guava and showed how to get data in and out could be very helpful to a common enterprise developer. I am pretty sure that many many people will want to so something like this:
 
-```
-public DataSet getSeriesValuesForSegmentsList(Table<Date,String,Double> measureForDateRange)
-            throws DataSetProviderException
+    {% highlight java %}
+    public DataSet getSeriesValuesForSegmentsList(Table<Date,String,Double> measureForDateRange)
+                throws DataSetProviderException
     {
         Map<String,List<Double>> dataListMap = new HashMap<>();
 
@@ -88,7 +88,7 @@ public DataSet getSeriesValuesForSegmentsList(Table<Date,String,Double> measureF
         return ds;
 
     }
-```    
+    {% endhighlight %}  
 
 Sorry that example isn't complete, I hope it gives the gist though.
 
@@ -99,5 +99,3 @@ That's totally ok. They are your priorities, and your business. Its not my job t
 Hope this helps,
 
 Clay
-
->
