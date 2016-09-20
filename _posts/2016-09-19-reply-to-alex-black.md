@@ -20,7 +20,7 @@ My review is meant to explain what kind of speed bumps that users in the enterpr
 
 >our docs are a mixture of pretty good, 'kinda sucks' and non-existent at the moment, depending on the area
 
-I have found that "Quick-Start" Guides that get a user running, but understanding a technology fast is helpful. My recommendation would be to go beyond that and create a user's guide for each technology where the core aspects of building data, training, using the network and correlation are broken down and explained, with working code.
+I have found that "Quick-Start" Guides that get a user running, but understanding a technology fast are helpful. My recommendation would be to go beyond that and create a user's guide for each technology where the core aspects of building data, training, using the network and correlation are broken down and explained, with working code.
 
 Think about who your users are:
 
@@ -33,9 +33,9 @@ This means you need to focus on making it easy to get data in and out and to sho
 
 >To be fair, ND4J is necessarily complex due to the large amount of functionality there..
 
-Don't remove ANY of that, its awesome, but build some bridges that marshal in and out so people who have a hard time understanding it can use it quickly.
+Don't remove ANY of that, its awesome, but build some bridges that marshal data from simpler models in and out so people who would have a hard time understanding ND4J natively can use it quickly.
 
-**People just love grids**, even if they aren't awesome for deep learning. A simple guava to nd4j bridge, or even some examples that used guava and showed how to get data in and out could be very helpful to a common enterprise developer. I am pretty sure that many many people will want to so something like this:
+**People just love grids**, even if they aren't awesome for deep learning. A simple guava to ND4J bridge, or even some examples that used guava and showed how to get data in and out could be very helpful to a common enterprise developer. I am pretty sure that many many people will want to do something like this:
 
     {% highlight java %}
     public DataSet getSeriesValuesForSegmentsList(Table<Date,String,Double> measureForDateRange)
@@ -91,6 +91,8 @@ Don't remove ANY of that, its awesome, but build some bridges that marshal in an
     {% endhighlight %}  
 
 Sorry that example isn't complete, I hope it gives the gist though.
+
+The trick about creating value is trying walk a mile in the shoes of people who are likely to use your technology, and then try to guess the types of things they will be doing with your technology to create business impact.
 
 >mapping evaluation/results back to the raw data - yep. We've talked about this internally, we've had higher priorities
 
