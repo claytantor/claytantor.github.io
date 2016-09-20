@@ -96,7 +96,7 @@ The trick about creating value is trying walk a mile in the shoes of people who 
 
 >mapping evaluation/results back to the raw data - yep. We've talked about this internally, we've had higher priorities
 
-That's totally ok. They are your priorities, and your business. Its not my job to set your priorities because I bet you are juggling chainsaws. I am just an enthusiast trying to introduce deep learning to Nike. I would say this though, your examples (at least right now) don't prove that they work at runtime to someone looking at them. There is no clear result of the network, that reduces significantly their value as a teaching and evaluation tool.
+That's totally ok. They are your priorities, and your business. Its not my job to set your priorities because I bet you are juggling chainsaws. I am just an enthusiast trying to introduce deep learning to people in my company. I would say this though, your examples (at least right now) don't prove that they work at runtime to someone looking at them. There is no clear result of the network, that reduces significantly their value as a teaching and evaluation tool.
 
 Hope this helps,
 
