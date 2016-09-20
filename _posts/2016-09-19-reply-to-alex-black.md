@@ -10,7 +10,7 @@ AlexDBlack,
 
 Thanks so much. I am honored that you are curious about my perspective.
 
-Let me start by saying that I am very sympathetic to the challenges of a startup. I have been a founder more than once so I am sure its tough to do everything you want to do. Building software for the enterprise is especially difficult, the body of work needed to make meet the expectations of larger companies can be daunting.
+Let me start by saying that I am very sympathetic to the challenges of a startup. I have been a founder more than once so I am sure its tough to do everything you want to do. Building software for the enterprise is especially difficult, the body of work needed to meet the expectations of larger companies can be daunting.
 
 The technology you have has significant value and has the potential of making deep learning a tool for data scientist and analysts in corporations. A pure deep learning implementation with an eye for performance in Java is something we need, and I would recommend using it even at this early stage. I made sure to put that in my review.  
 
@@ -20,7 +20,7 @@ My review is meant to explain what kind of speed bumps that users in the enterpr
 
 >our docs are a mixture of pretty good, 'kinda sucks' and non-existent at the moment, depending on the area
 
-I have found that "Quick-Start" Guides that get a user running, but understanding a technology fast is helpful. My recommendation would be to go beyond that and create a user's guide for each technology where the core aspects of building data, training, using the network and correlation are broken down and explained, with working code.
+I have found that "Quick-Start" Guides that get a user running, but understanding a technology fast are helpful. My recommendation would be to go beyond that and create a user's guide for each technology where the core aspects of building data, training, using the network and correlation are broken down and explained, with working code.
 
 Think about who your users are:
 
@@ -33,9 +33,9 @@ This means you need to focus on making it easy to get data in and out and to sho
 
 >To be fair, ND4J is necessarily complex due to the large amount of functionality there..
 
-Don't remove ANY of that, its awesome, but build some bridges that marshal in and out so people who have a hard time understanding it can use it quickly.
+Don't remove ANY of that, its awesome, but build some bridges that marshal data from simpler models in and out so people who would have a hard time understanding ND4J natively can use it quickly.
 
-**People just love grids**, even if they aren't awesome for deep learning. A simple guava to nd4j bridge, or even some examples that used guava and showed how to get data in and out could be very helpful to a common enterprise developer. I am pretty sure that many many people will want to so something like this:
+**People just love grids**, even if they aren't awesome for deep learning. A simple guava to ND4J bridge, or even some examples that used guava and showed how to get data in and out could be very helpful to a common enterprise developer. I am pretty sure that many many people will want to do something like this:
 
     {% highlight java %}
     public DataSet getSeriesValuesForSegmentsList(Table<Date,String,Double> measureForDateRange)
@@ -92,9 +92,11 @@ Don't remove ANY of that, its awesome, but build some bridges that marshal in an
 
 Sorry that example isn't complete, I hope it gives the gist though.
 
+The trick about creating value is trying walk a mile in the shoes of people who are likely to use your technology, and then try to guess the types of things they will be doing with your technology to create business impact.
+
 >mapping evaluation/results back to the raw data - yep. We've talked about this internally, we've had higher priorities
 
-That's totally ok. They are your priorities, and your business. Its not my job to set your priorities because I bet you are juggling chainsaws. I am just an enthusiast trying to introduce deep learning to Nike. I would say this though, your examples (at least right now) don't prove that they work at runtime to someone looking at them. There is no clear result of the network, that reduces significantly their value as a teaching and evaluation tool.
+That's totally ok. They are your priorities, and your business. Its not my job to set your priorities because I bet you are juggling chainsaws. I am just an enthusiast trying to introduce deep learning to people in my company. I would say this though, your examples (at least right now) don't prove that they work at runtime to someone looking at them. There is no clear result of the network, that reduces significantly their value as a teaching and evaluation tool.
 
 Hope this helps,
 
