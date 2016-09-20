@@ -10,7 +10,7 @@ AlexDBlack,
 
 Thanks so much. I am honored that you are curious about my perspective.
 
-Let me start by saying that I am very sympathetic to the challenges of a startup. I have been a founder more than once so I am sure its tough to do everything you want to do. Building software for the enterprise is especially difficult, the body of work needed to make meet the expectations of larger companies can be daunting.
+Let me start by saying that I am very sympathetic to the challenges of a startup. I have been a founder more than once so I am sure its tough to do everything you want to do. Building software for the enterprise is especially difficult, the body of work needed to meet the expectations of larger companies can be daunting.
 
 The technology you have has significant value and has the potential of making deep learning a tool for data scientist and analysts in corporations. A pure deep learning implementation with an eye for performance in Java is something we need, and I would recommend using it even at this early stage. I made sure to put that in my review.  
 
