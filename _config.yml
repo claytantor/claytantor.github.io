@@ -1,58 +1,50 @@
+# Site settings
+title: claytantor - I am a doer not a beer.
+description: "This is were I talk about github related projects and contributions."
+baseurl: "/claytantor.github.io" # the subpath of your site
+url: "http://claytantor.github.io"
 
-# SEO settings
-title: "claytantor"
-title2: " technology, design & doing." # default: ""
-description: "I am a doer not a beer."
-keywords: "java, cloud, deep learning"
-url: http://claytantor.github.io # site url
-baseurl: null # apply repo name if use it under gh-pages branch
-# baseurl: null # apply null if repo name is something like username.github.io
+# User settings
+username: claytantor
+user_title: claytantor - I am a doer not a beer.
+email: claytantor@gmail.com
+twitter_username: claytantor
+github_username:  claytantor
+gplus_username:  claytantor
 
-google_analytics: UA-XXXXX-XX
-repo: http://github.com/claytantor
-disqus_shortname: "claytantor"
-twitter_username: "claytantor"
-comments: true
 
 # Build settings
-permalink   : /:year/:title/
-markdown    : kramdown
-highlighter : rouge
+markdown: kramdown
+highlighter: rouge
+permalink: /:title/
 
-source: ./
-destination: ./_site
 
-# Sass configuration
-sass:
-  sass_dir: assets/scss
-  style: compressed # expanded
+# html minify
+compress_html:
+  clippings: all
+  comments: all
+  endings: []
+  profile: false
 
-# Author settings
-author:
-  name     : "Clay Graham"
-  job      : "Doer"
-  bio      : "This is my github site to post articles that I am interested in technically."
-  thumb    : /images/author.jpg
-  email    : claytantor@gmail.com
-  url      : http://claytantor.com
-  github   : http://github.com/claytantor
-  twitter  : http://twitter.com/claytantor
-  linkedin : http://linkedin.com/in/claytantor
-
-# social settings
-og_locale: "en_US"
-twitter_card: "summary_large_image"
-twitter_site: "@claytantor"
-
-gems:
-  - bourbon
-  - jekyll-paginate
-
-# navbar pages
-navbar:
-  - slug : about
-    title: About
-  - slug : blog
-    title: Blog
-
-exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md", "vendor"]
+# Links to include in menu navigation
+links:
+  - title: home
+    url: /
+  - title: my posts
+    url: /posts
+  - title: series
+    url: /series
+  - title: tags
+    url: /tags
+  - title: about me
+    url: /about
+# projects in header index
+projects:
+  - name: blueweave
+    url: https://github.com/claytantor/blueweave
+  - name: jetty-jersey-spring-bootstrap
+    url: https://github.com/claytantor/jetty-jersey-spring-bootstrap
+  - name: coinbase4py
+    url: https://github.com/claytantor/coinbase4py
+# exclude my node related stuff
+exclude: ['package.json', 'src', 'node_modules', 'vendor']
