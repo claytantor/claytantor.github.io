@@ -1,58 +1,50 @@
+# Site settings
+title: Lorem Ipsum - Web Developer
+description: "A blog about lorem ipsum ..."
+baseurl: "/space-jekyll-template" # the subpath of your site
+url: "http://victorvoid.github.io"
 
-# SEO settings
-title: "claytantor"
-title2: " technology, design & doing." # default: ""
-description: "I am a doer not a beer."
-keywords: "java, cloud, deep learning"
-url: http://claytantor.github.io # site url
-baseurl: null # apply repo name if use it under gh-pages branch
-# baseurl: null # apply null if repo name is something like username.github.io
-
-google_analytics: UA-XXXXX-XX
-repo: http://github.com/claytantor
-disqus_shortname: "claytantor"
-twitter_username: "claytantor"
-comments: true
+# User settings
+username: lorem ipsum
+user_title: Lorem Ipsum - FrontEnd
+email: lorem.lorem@ipsum.com
+twitter_username: loremipsum
+github_username:  loremipsum
+gplus_username:  loremipsum
+disqus_username: loremipsum
 
 # Build settings
-permalink   : /:year/:title/
-markdown    : kramdown
-highlighter : rouge
+markdown: kramdown
+highlighter: rouge
+permalink: /:title/
 
-source: ./
-destination: ./_site
 
-# Sass configuration
-sass:
-  sass_dir: assets/scss
-  style: compressed # expanded
+# html minify
+compress_html:
+  clippings: all
+  comments: all
+  endings: []
+  profile: false
 
-# Author settings
-author:
-  name     : "Clay Graham"
-  job      : "Doer"
-  bio      : "This is my github site to post articles that I am interested in technically."
-  thumb    : /images/author.jpg
-  email    : claytantor@gmail.com
-  url      : http://claytantor.com
-  github   : http://github.com/claytantor
-  twitter  : http://twitter.com/claytantor
-  linkedin : http://linkedin.com/in/claytantor
-
-# social settings
-og_locale: "en_US"
-twitter_card: "summary_large_image"
-twitter_site: "@claytantor"
-
-gems:
-  - bourbon
-  - jekyll-paginate
-
-# navbar pages
-navbar:
-  - slug : about
-    title: About
-  - slug : blog
-    title: Blog
-
-exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md", "vendor"]
+# Links to include in menu navigation
+links:
+  - title: home
+    url: /
+  - title: my posts
+    url: /posts
+  - title: series
+    url: /series
+  - title: tags
+    url: /tags
+  - title: about me
+    url: /about
+# projects in header index
+projects:
+  - name: asciilang
+    url: https://github.com/victorvoid/asciilang
+  - name: vim-frontend
+    url: https://github.com/victorvoid/vim-frontend
+  - name: generator-capybara
+    url: https://github.com/victorvoid/generator-capybara 
+# exclude my node related stuff
+exclude: ['package.json', 'src', 'node_modules']
