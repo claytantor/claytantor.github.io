@@ -1,17 +1,17 @@
 # Site settings
-title: Lorem Ipsum - Web Developer
-description: "A blog about lorem ipsum ..."
-baseurl: "/space-jekyll-template" # the subpath of your site
-url: "http://victorvoid.github.io"
+title: claytantor - I am a doer not a beer.
+description: "This is were I talk about github related projects and contributions."
+baseurl: "/claytantor-github-io" # the subpath of your site
+url: "http://claytantor.github.io"
 
 # User settings
-username: lorem ipsum
-user_title: Lorem Ipsum - FrontEnd
-email: lorem.lorem@ipsum.com
-twitter_username: loremipsum
-github_username:  loremipsum
-gplus_username:  loremipsum
-disqus_username: loremipsum
+username: claytantor
+user_title: claytantor - I am a doer not a beer.
+email: lclaytantor@gmail.com
+twitter_username: claytantor
+github_username:  claytantor
+gplus_username:  claytantor
+
 
 # Build settings
 markdown: kramdown
@@ -40,11 +40,11 @@ links:
     url: /about
 # projects in header index
 projects:
-  - name: asciilang
-    url: https://github.com/victorvoid/asciilang
-  - name: vim-frontend
-    url: https://github.com/victorvoid/vim-frontend
-  - name: generator-capybara
-    url: https://github.com/victorvoid/generator-capybara 
+  - name: blueweave
+    url: https://github.com/claytantor/blueweave
+  - name: jetty-jersey-spring-bootstrap
+    url: https://github.com/claytantor/jetty-jersey-spring-bootstrap
+  - name: coinbase4py
+    url: https://github.com/claytantor/coinbase4py
 # exclude my node related stuff
 exclude: ['package.json', 'src', 'node_modules']
