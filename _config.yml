@@ -1,7 +1,7 @@
 # Site settings
 title: claytantor - I am a doer not a beer.
 description: "This is were I talk about github related projects and contributions."
-baseurl: "/claytantor-github-io" # the subpath of your site
+baseurl: "/claytantor.github.io" # the subpath of your site
 url: "http://claytantor.github.io"
 
 # User settings
