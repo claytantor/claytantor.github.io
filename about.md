@@ -4,4 +4,10 @@ title: About
 permalink: /about/
 ---
 
-**Thinkspace** is just another minimalist Jekyll theme that focuses on technical writing. Designed for engineers to write their ranting and findings.
+# Actions speak louder than words.
+
+It is important for me to lead by doing. You can't really make something happen unless you are willing to understand it authentically, capable of going beyond the surface and into the intimate. Only by comprehending the truth in the details can something be transformed from an idea into a reality.
+
+Thats why I love github. Its about the only place where I can learn, contribute and share with others.
+
+[claytantor's homepage](http://claytantor.com/)
