@@ -47,4 +47,4 @@ projects:
   - name: coinbase4py
     url: https://github.com/claytantor/coinbase4py
 # exclude my node related stuff
-exclude: ['package.json', 'src', 'node_modules']
+exclude: ['package.json', 'src', 'node_modules', 'vendor']
